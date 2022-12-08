@@ -100,6 +100,10 @@ plot([t0, tf], [p_max, p_max], '--r', 'linewidth', lw/2);
 plot(t_sim, p_sim, 'linewidth', lw, 'color',  [0 0.4470 0.7410])
 
 
+figure(11); clf; hold on;
+plot(t_sim, th_sim, 'linewidth', lw, 'color',  [0 0.4470 0.7410])
+
+
 %% Check what time the constraint becomes violated
 
 p = y + l/g*ddy;
@@ -205,15 +209,12 @@ F_c = (M+m)*(ddy_c + l/g*ddddy_c) + m*l*(ddy_c/g.*(dddy_c/g).^2 - ddddy_c/g);
 theta_c = -ddy_c./g;
 
 figure(11); hold on;
-plot(t_c, theta_c);
-plot([t0, tf], [.26, .26], '--k')
-plot([t0, tf], [-.26, -.26], '--k')
-xlabel('Time (s)')
-ylabel('Swing Angle (rad)');
+plot(t_c, theta_c, '-.', 'linewidth', lw, 'color', [0.8500 0.3250 0.0980]);
+
 
 p_c = y_c + l/g*ddy_c;
 figure(12); hold on;
-plot(t_c, p_c, '-.', 'linewidth', lw, 'color', [0.8500 0.3250 0.0980])
+plot(t_c, p_c, '-.', 'linewidth', lw, 'color', [0.8500 0.3250 0.0980]);
 
 %% run the simulation with constraints!!
 
@@ -271,13 +272,21 @@ set(gca, 'FontSize', 16);
 set(gca, 'FontName', 'Times')
 
 
+%%%% Make figure 11 pretty
+figure(11); hold on;
+plot(t_sim, th_sim, ':', 'linewidth', lw, 'color', [0.4660 0.6740 0.1880])
+legend('Unconstrained', 'Constrained Small Angle', 'Constrained');
+
+axis([0, tf, -.26, .26])
 
 
 
+xlabel('Time (s)');
+ylabel('\theta (rad)');
 
-
-
-
+grid on; box on;
+set(gca, 'FontSize', 16);
+set(gca, 'FontName', 'Times')
 
 
 
